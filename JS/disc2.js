@@ -1,36 +1,29 @@
-function prevText(text) {
-    const prevText = document.getElementById(text);
-    const prevTextPrice= parseFloat(prevText.innerText);
-    return  prevTextPrice;
+function prevtext(priceId) {
+    const priceGivenGet = document.getElementById(priceId).innerText;
+    const priceGiven =  parseFloat(priceGivenGet);
+    return priceGiven;
 }
-
-function setTextNew(setid, prevTextId, value) {
-    const set = document.getElementById(setid);
-    const previousTextSellPrice = prevText(prevTextId); // এখানে prevTextId প্যারামিটার পাস করা হয়েছে
-    set.innerText = previousTextSellPrice - value;
+function withDiscount(priceId,newid){
+    const  dis = prevtext(priceId) * (0.3);
+    const discount = prevtext(priceId) - dis;
+    const resultId = document.getElementById(newid);
+    resultId.innerText = discount;
 }
-
-function setTextWithoutDiscout(setid, value) {
-    const set = document.getElementById(setid);
+function withOut(priceId,newid){
     
-    set.innerText = (setid,value);
-
+    const resultId = document.getElementById(newid);
+    resultId.innerText = prevtext(priceId);
 }
 
 
 document.getElementById('btn').addEventListener('click',function( ){
-    
-     const previousTextSellPrice = prevText('prevtext');
-    //  const newTextSellPrice = prevText('newtext');
-     
- 
-    if (document.getElementById('input-cupon').value == 'DISC30') {
-        const discount = previousTextSellPrice * 0.3; 
-       
-        setTextNew('newtext','prevtext',discount);
-     }
-     else{
-      
-        setTextWithoutDiscout('newtext',previousTextSellPrice )}
-  
+    const previousPrice = prevtext('prevtext');
+    const cupon= document.getElementById('input-cupon').value;
+
+    if (cupon == 'DISC30') {
+        withDiscount('prevtext','resultId'); 
+    }
+    else{
+        withOut('prevtext','resultId')
+    }
 })
